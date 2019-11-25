@@ -1,58 +1,5 @@
-from nsepy import get_history
-from datetime import date
-data = get_history(symbol="SBIN", start=date(2015,1,1), end=date(2015,1,31))
-data[['Close']].plot()
-#print(data)
-import pandas as pd
-volume = data['Volume']
-df = pd.DataFrame(volume)
-df = df.sort_values(by='Volume')
-#print(df)
-#print('data.mean')
-#print(data['Close'].mean())
-meanVolume = data['Volume'].mean()
-#print(meanVolume)
-import numpy as np
-
-#print(np.median(data['Volume']))
-from nsetools import Nse
-nse = Nse()
-#print(nse)
-q = nse.get_quote('infy')
-var = nse.get_index_list()
-print(var)
-from pprint import pprint
-pprint(q)
-#pprint(q['symbol'])
-
-all_stocks = nse.get_stock_codes()
-#print(all_stocks)
-
-
-final_data = {'SYMBOL':0}
-import time
-all_stocks = {'3MINDIA': '3M India Limited', 'AARTIIND': 'Aarti Industries Limited', 'ABB': 'ABB India Limited', 'ABBOTINDIA': 'Abbott India Limited', 'ABCAPITAL': 'Aditya Birla Capital Limited', 'ABFRL': 'Aditya Birla Fashion and Retail Limited', 'ACC': 'ACC Limited', 'ADANIENT': 'Adani Enterprises Limited', 'ADANIGAS': 'Adani Gas Limited', 'ADANIGREEN': 'Adani Green Energy Limited', 'ADANIPORTS': 'Adani Ports and Special Economic Zone Limited', 'ADANIPOWER': 'Adani Power Limited', 'ADANITRANS': 'Adani Transmission Limited',
-'ASIANPAINT': 'Asian Paints Limited',
-              'AUBANK': 'AU Small Finance Bank Limited',
-              'AVANTIFEED': 'Avanti Feeds Limited', 'AVTNPL': 'AVT Natural Products Limited',
-              'AXISBANK': 'Axis Bank Limited',
-'BAJAJ-AUTO': 'Bajaj Auto Limited', 'BAJAJCON': 'Bajaj Consumer Care Limited', 'BAJAJELEC': 'Bajaj Electricals Limited', 'BAJAJFINSV': 'Bajaj Finserv Limited', 'BAJAJHIND': 'Bajaj Hindusthan Sugar Limited', 'BAJAJHLDNG': 'Bajaj Holdings & Investment Limited', 'BAJFINANCE': 'Bajaj Finance Limited',
-'BALKRISIND': 'Balkrishna Industries Limited',
-'BANDHANBNK': 'Bandhan Bank Limited', 'BANKBARODA': 'Bank of Baroda', 'BANKINDIA': 'Bank of India', 'BANSWRAS': 'Banswara Syntex Limited',
-'BATAINDIA': 'Bata India Limited',
-'BEL': 'Bharat Electronics Limited', 'BEML': 'BEML Limited',
-'BPCL': 'Bharat Petroleum Corporation Limited',
-'CADILAHC': 'Cadila Healthcare Limited',
-'BHARTIARTL': 'Bharti Airtel Limited',
-'CGPOWER': 'CG Power and Industrial Solutions Limited',
-'COALINDIA': 'Coal India Limited', 'DRREDDY': "Dr. Reddy's Laboratories Limited",
-'EICHERMOT': 'Eicher Motors Limited', 'EQUITAS': 'Equitas Holdings Limited',
-'GAIL': 'GAIL (India) Limited', 'GRAPHITE': 'Graphite India Limited', 'GRASIM': 'Grasim Industries Limited',
-'HCLTECH': 'HCL Technologies Limited', 'HDFC': 'Housing Development Finance Corporation Limited', 'HDFCAMC': 'HDFC Asset Management Company Limited', 'HDFCBANK': 'HDFC Bank Limited', 'HDFCLIFE': 'HDFC Life Insurance Company Limited', 'HDIL': 'Housing Development and Infrastructure Limited', 'HEG': 'HEG Limited'
-    
-}
-
-all_stocks1 = {'ABBOTINDIA': 'Abbott India Limited',
+all_stocks = { '3MINDIA': '3M India Limited',
+'ABBOTINDIA': 'Abbott India Limited',
 'ABFRL': 'Aditya Birla Fashion and Retail Limited',
 'ACC': 'ACC Limited',
 'ADANIENT': 'Adani Enterprises Limited',
@@ -230,41 +177,4 @@ all_stocks1 = {'ABBOTINDIA': 'Abbott India Limited',
 'YESBANK': 'Yes Bank Limited',
 'ZEEL': 'Zee Entertainment Enterprises Limited',
 'ZEELEARN': 'Zee Learn Limited',
-'ZEEMEDIA': 'Zee Media Corporation Limited'
-}
-
-def process():
-    for stock in all_stocks1:
-        print('process called')
-        print(stock)
-        if nse.is_valid_code(stock) and stock != 'SYMBOL':
-            #print(stock)
-            #time.sleep(1)
-            stock_info = nse.get_quote(stock)
-            buyQ = 0
-            if stock_info['totalBuyQuantity']:
-                buyQ = stock_info['totalBuyQuantity']
-            sellQ = 0
-            if stock_info['totalSellQuantity']:
-                sellQ = stock_info['totalSellQuantity']
-            #buyQ = tmp['totalBuyQuantity']
-            #sellQ = tmp['totalSellQuantity']
-            buyP = 0
-            if (buyQ+sellQ):
-                buyP = ((buyQ)/(buyQ+sellQ))*100
-            val = (buyP-50)*2
-            final_data[stock]=val
-            print(final_data[stock])
-
-
-def getFinalData():
-    print('getFinalData called')
-    process()
-    return final_data
-
-getFinalData()
-#print(final_data)
-#import argparse
-#parser = argparse.ArgumentParser()
-#args = parser.parse_args(q)
-#print(args)
+'ZEEMEDIA': 'Zee Media Corporation Limited',
